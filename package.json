@@ -1,5 +1,5 @@
 {
-  "name": "langlayer-sdk",
+  "name": "langlayer",
   "private": true,
   "scripts": {
     "build": "turbo run build",
