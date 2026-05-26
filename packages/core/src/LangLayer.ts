@@ -1,10 +1,12 @@
 import { Cache } from "./library/cache";
 import type {
   DeepKeys,
+  LangLayerEvent,
   LangLayerConfig,
   Manifest,
   Translations,
   TranslationTree,
+  LangLayerEventListeners,
 } from "./library/types";
 import {
   createTranslationTree,
@@ -24,6 +26,8 @@ export class LangLayer<TDict extends TranslationTree> {
   private cache = new Cache();
 
   private currentLang = DEFAULT_LANGUAGE;
+
+  private eventListeners: LangLayerEventListeners<TDict> = {};
 
   constructor(private config: LangLayerConfig) {}
 
@@ -101,9 +105,12 @@ export class LangLayer<TDict extends TranslationTree> {
         this.config.fallbackLanguage &&
         this.config.fallbackLanguage !== lang
       ) {
+        console.error(
+          `[LangLayer] - Messages not found for language:${lang}, falling back to ${this.config.fallbackLanguage}`,
+        );
         return this.setLanguage(this.config.fallbackLanguage);
       }
-      throw new Error(`Language "${lang}" not found`);
+      throw new Error(`[LangLayer] - Language "${lang}" not found`);
     }
 
     await this.loadTranslationTree(lang, translationFileName);
@@ -130,11 +137,41 @@ export class LangLayer<TDict extends TranslationTree> {
 
     if (!value || typeof value !== "string") {
       console.error(
-        `Missing value for key:${key} in language:${this.getCurrentLanguage()}`,
+        `[LangLayer] - Missing value for key:${key} in language:${this.getCurrentLanguage()}`,
       );
       return "";
     }
 
     return interpolate(value, params);
+  }
+
+  // -----------------------
+  // Updaters
+  // -----------------------
+
+  updateText<T extends DeepKeys<TDict>>(
+    lang: string,
+    key: T,
+    value: string,
+    params?: Record<string, string | number>,
+  ) {
+    this.translationTreePerLanguage[lang] ??= {};
+
+    this.translationTreePerLanguage[lang][key] = value;
+
+    if (this.getCurrentLanguage() === lang) {
+      this.eventListeners.change?.(key, interpolate(value, params));
+    }
+  }
+
+  // -----------------------
+  // Listeners
+  // -----------------------
+
+  on<T extends LangLayerEvent<TDict>>(
+    event: T,
+    cb: LangLayerEventListeners<TDict>[T],
+  ) {
+    this.eventListeners[event] = cb;
   }
 }

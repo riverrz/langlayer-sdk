@@ -16,6 +16,19 @@ export function createLangLayer<TDict extends TranslationTree>(
     });
   }
 
+  core.on("change", (key: DeepKeys<TDict>, value: string) => {
+    const el = document.querySelector(`[data-llKey]="${key}"`);
+
+    if (!el) {
+      console.warn(
+        `[LangLayer] - Element with llKey:${key} not found, ignoring update.`,
+      );
+      return;
+    }
+
+    el.textContent = value;
+  });
+
   return {
     init: async (lang: string) => {
       await core.init(lang);

@@ -25,3 +25,9 @@ export type DeepKeys<T> = T extends object
         : never;
     }[keyof T]
   : never;
+
+export type LangLayerEventListeners<TDict> = {
+  change?: (key: DeepKeys<TDict>, value: string) => void;
+};
+
+export type LangLayerEvent<TDict> = keyof LangLayerEventListeners<TDict>;
