@@ -39,7 +39,8 @@ export class LangLayer<TDict extends TranslationTree> {
     const cached = this.cache.get<T>(cacheKey);
     if (cached) return cached;
 
-    const res = await fetch(url);
+    const res = await fetch(`https://d1141dvyvnbko4.cloudfront.net/${url}`);
+
     const data = await res.json();
 
     this.cache.set(cacheKey, data);
