@@ -1,0 +1,139 @@
+import { Cache } from "./library/cache";
+import type {
+  DeepKeys,
+  LangLayerConfig,
+  Manifest,
+  Translations,
+  TranslationTree,
+} from "./library/types";
+import {
+  createTranslationTree,
+  getUploadedContentPath,
+  getUploadedManifestPath,
+  interpolate,
+} from "./library/utils";
+import {
+  DEFAULT_CONTENT_BRANCH_NAME,
+  DEFAULT_LANGUAGE,
+} from "./library/constants";
+import { get } from "./library/get";
+
+export class LangLayer<TDict extends TranslationTree> {
+  private manifest?: Manifest;
+  private translationTreePerLanguage: Record<string, TranslationTree> = {};
+  private cache = new Cache();
+
+  private currentLang = DEFAULT_LANGUAGE;
+
+  constructor(private config: LangLayerConfig) {}
+
+  private branch() {
+    return this.config.contentBranch ?? DEFAULT_CONTENT_BRANCH_NAME;
+  }
+
+  // -----------------------
+  // Fetch helpers with cache
+  // -----------------------
+
+  private async fetchJSON<T>(url: string, cacheKey: string): Promise<T> {
+    const cached = this.cache.get<T>(cacheKey);
+    if (cached) return cached;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    this.cache.set(cacheKey, data);
+    return data;
+  }
+
+  // -----------------------
+  // Init
+  // -----------------------
+
+  async init(language: string) {
+    await this.loadManifest();
+    await this.setLanguage(language);
+  }
+
+  // -----------------------
+  // Manifest
+  // -----------------------
+
+  private async loadManifest() {
+    const url = getUploadedManifestPath({
+      ...this.config,
+      contentBranchName: this.branch(),
+    });
+
+    this.manifest = await this.fetchJSON<Manifest>(
+      url,
+      `manifest:${this.config.organizationSlug}:${this.config.projectSlug}:${this.branch()}`,
+    );
+  }
+
+  private async loadTranslationTree(lang: string, translationFileName: string) {
+    const url = getUploadedContentPath({
+      ...this.config,
+      contentBranchName: this.branch(),
+      langFileName: translationFileName,
+    });
+
+    const translations = await this.fetchJSON<Translations>(
+      url,
+      `lang:${lang}:${translationFileName}:${this.manifest!.lastUpdatedAt}`,
+    );
+
+    this.translationTreePerLanguage[lang] = createTranslationTree(translations);
+  }
+
+  // -----------------------
+  // Language loading
+  // -----------------------
+
+  async setLanguage(lang: string): Promise<void> {
+    if (!this.manifest) await this.loadManifest();
+
+    const translationFileName = this.manifest!.languages[lang];
+
+    if (!translationFileName) {
+      if (
+        this.config.fallbackLanguage &&
+        this.config.fallbackLanguage !== lang
+      ) {
+        return this.setLanguage(this.config.fallbackLanguage);
+      }
+      throw new Error(`Language "${lang}" not found`);
+    }
+
+    await this.loadTranslationTree(lang, translationFileName);
+
+    this.currentLang = lang;
+  }
+
+  getCurrentLanguage() {
+    return this.currentLang;
+  }
+
+  // -----------------------
+  // Typed-safe translator
+  // -----------------------
+
+  t<K extends DeepKeys<TDict>>(
+    key: K,
+    params?: Record<string, string | number>,
+  ): string {
+    const value = get(
+      this.translationTreePerLanguage[this.getCurrentLanguage()],
+      key,
+    );
+
+    if (!value || typeof value !== "string") {
+      console.error(
+        `Missing value for key:${key} in language:${this.getCurrentLanguage()}`,
+      );
+      return "";
+    }
+
+    return interpolate(value, params);
+  }
+}

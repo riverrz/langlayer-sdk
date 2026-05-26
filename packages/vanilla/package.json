@@ -1,5 +1,5 @@
 {
-  "name": "@langlayer/core",
+  "name": "@langlayer/vanilla",
   "version": "0.0.0",
   "license": "MIT",
   "main": "./dist/index.js",
@@ -26,6 +26,7 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
+    "@langlayer/core": "workspace:*",
     "@langlayer/eslint-config": "workspace:*",
     "@langlayer/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",

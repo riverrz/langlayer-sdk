@@ -114,6 +114,30 @@ importers:
 
   packages/typescript-config: {}
 
+  packages/vanilla:
+    devDependencies:
+      '@langlayer/core':
+        specifier: workspace:*
+        version: link:../core
+      '@langlayer/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@langlayer/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(typescript@5.9.2)
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
 packages:
 
   '@babel/runtime@7.29.2':
