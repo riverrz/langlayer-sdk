@@ -10,8 +10,8 @@ export function createLangLayer<TDict extends TranslationTree>(
   const core = new LangLayer<TDict>(config);
 
   function applyBindings() {
-    document.querySelectorAll("[data-i18n]").forEach((el) => {
-      const key = el.getAttribute("data-i18n")! as DeepKeys<TDict>;
+    document.querySelectorAll("[data-llKey]").forEach((el) => {
+      const key = el.getAttribute("data-llKey")! as DeepKeys<TDict>;
       el.textContent = core.t(key);
     });
   }
