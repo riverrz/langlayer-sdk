@@ -39,7 +39,6 @@ export type ApiResponse<TData> =
 export type ContentPreviewMetadata = {
   organizationSlug: string;
   projectSlug: string;
-  contentBranchName: string;
 };
 
 export type IFrameMessage<TDict> = {
