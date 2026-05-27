@@ -40,7 +40,7 @@ export default async function initializeDevTools<TDict extends TranslationTree>(
 
 async function getContentPreviewMetadata(previewToken: string) {
   const res = await fetch(
-    `${LANGLAYER_API_URL}/content/preview?previewToken=${previewToken}`,
+    `${LANGLAYER_API_URL}/content/preview/metadata?previewToken=${previewToken}`,
   );
 
   const response = (await res.json()) as ApiResponse<ContentPreviewMetadata>;
