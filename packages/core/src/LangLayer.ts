@@ -180,11 +180,12 @@ export class LangLayer<TDict extends TranslationTree> {
   // Validators
   // -----------------------
 
-  validateConfig(config: Omit<LangLayerConfig, "fallbackLanguage">) {
+  validateConfig(
+    config: Pick<LangLayerConfig, "organizationSlug" | "projectSlug">,
+  ) {
     return (
       this.config.organizationSlug === config.organizationSlug &&
-      this.config.projectSlug === config.projectSlug &&
-      this.config.contentBranch === config.contentBranch
+      this.config.projectSlug === config.projectSlug
     );
   }
 }
