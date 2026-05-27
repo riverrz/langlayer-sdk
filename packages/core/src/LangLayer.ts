@@ -17,19 +17,20 @@ import {
 import {
   DEFAULT_CONTENT_BRANCH_NAME,
   DEFAULT_LANGUAGE,
+  LANGLAYER_CDN_URL,
 } from "./library/constants";
 import { get } from "./library/get";
 
 export class LangLayer<TDict extends TranslationTree> {
   private manifest?: Manifest;
   private translationTreePerLanguage: Record<string, TranslationTree> = {};
-  private cache = new Cache();
+  private readonly cache = new Cache();
 
   private currentLang = DEFAULT_LANGUAGE;
 
   private eventListeners: LangLayerEventListeners<TDict> = {};
 
-  constructor(private config: LangLayerConfig) {}
+  constructor(private readonly config: LangLayerConfig) {}
 
   private branch() {
     return this.config.contentBranch ?? DEFAULT_CONTENT_BRANCH_NAME;
@@ -43,7 +44,7 @@ export class LangLayer<TDict extends TranslationTree> {
     const cached = this.cache.get<T>(cacheKey);
     if (cached) return cached;
 
-    const res = await fetch(`https://d1141dvyvnbko4.cloudfront.net/${url}`);
+    const res = await fetch(`${LANGLAYER_CDN_URL}/${url}`);
 
     const data = await res.json();
 
@@ -173,5 +174,17 @@ export class LangLayer<TDict extends TranslationTree> {
     cb: LangLayerEventListeners<TDict>[T],
   ) {
     this.eventListeners[event] = cb;
+  }
+
+  // -----------------------
+  // Validators
+  // -----------------------
+
+  validateConfig(config: Omit<LangLayerConfig, "fallbackLanguage">) {
+    return (
+      this.config.organizationSlug === config.organizationSlug &&
+      this.config.projectSlug === config.projectSlug &&
+      this.config.contentBranch === config.contentBranch
+    );
   }
 }

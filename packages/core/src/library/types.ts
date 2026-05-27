@@ -31,3 +31,22 @@ export type LangLayerEventListeners<TDict> = {
 };
 
 export type LangLayerEvent<TDict> = keyof LangLayerEventListeners<TDict>;
+
+export type ApiResponse<TData> =
+  | { success: false; error: string }
+  | { success: true; data: TData };
+
+export type ContentPreviewMetadata = {
+  organizationSlug: string;
+  projectSlug: string;
+  contentBranchName: string;
+};
+
+export type IFrameMessage<TDict> = {
+  type: "translations:updateText";
+  payload: {
+    lang: string;
+    key: DeepKeys<TDict>;
+    value: string;
+  };
+};
