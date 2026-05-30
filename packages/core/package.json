@@ -1,5 +1,5 @@
 {
-  "name": "@langlayer/core",
+  "name": "@langlayer-sdk/core",
   "version": "0.1.0",
   "license": "MIT",
   "sideEffects": false,
@@ -32,8 +32,8 @@
     "check-types": "tsc --noEmit"
   },
   "devDependencies": {
-    "@langlayer/eslint-config": "workspace:*",
-    "@langlayer/typescript-config": "workspace:*",
+    "@langlayer-sdk/eslint-config": "workspace:*",
+    "@langlayer-sdk/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
     "eslint": "^9.39.1",
     "tsup": "^8.5.1",
