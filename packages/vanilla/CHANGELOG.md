@@ -1,5 +1,11 @@
 # @langlayer-sdk/vanilla
 
+## 0.3.0
+
+### Minor Changes
+
+- e9fd2b7: Fix core dependency type
+
 ## 0.2.0
 
 ### Minor Changes

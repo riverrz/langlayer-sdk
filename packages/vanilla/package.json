@@ -1,6 +1,6 @@
 {
   "name": "@langlayer-sdk/vanilla",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Vanilla JS bindings for LangLayer core",
   "repository": {
     "type": "git",
