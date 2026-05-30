@@ -1,5 +1,11 @@
 # @langlayer-sdk/core
 
+## 0.2.1
+
+### Patch Changes
+
+- 8c7a39d: Set build target to ES2015
+
 ## 0.2.0
 
 ### Minor Changes

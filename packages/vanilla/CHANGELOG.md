@@ -1,5 +1,13 @@
 # @langlayer-sdk/vanilla
 
+## 0.3.1
+
+### Patch Changes
+
+- 8c7a39d: Set build target to ES2015
+- Updated dependencies [8c7a39d]
+  - @langlayer-sdk/core@0.2.1
+
 ## 0.3.0
 
 ### Minor Changes
