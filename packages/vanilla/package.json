@@ -1,7 +1,7 @@
 {
-  "name": "@langlayer/react",
-  "license": "MIT",
+  "name": "@langlayer/vanilla",
   "version": "0.0.0",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -20,25 +20,18 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts  --sourcemap",
+    "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {
-    "@langlayer/core": "workspace:*"
-  },
   "devDependencies": {
+    "@langlayer/core": "workspace:*",
     "@langlayer/eslint-config": "workspace:*",
     "@langlayer/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
     "tsup": "^8.5.1",
     "typescript": "5.9.2"
-  },
-  "peerDependencies": {
-    "react": ">=18"
   }
 }
