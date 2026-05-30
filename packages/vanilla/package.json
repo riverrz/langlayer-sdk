@@ -1,6 +1,16 @@
 {
   "name": "@langlayer-sdk/vanilla",
   "version": "0.2.0",
+  "description": "Vanilla JS bindings for LangLayer core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riverrz/langlayer-sdk.git",
+    "directory": "packages/vanilla"
+  },
+  "homepage": "https://github.com/riverrz/langlayer-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/riverrz/langlayer-sdk/issues"
+  },
   "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

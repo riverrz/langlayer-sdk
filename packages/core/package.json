@@ -1,6 +1,16 @@
 {
   "name": "@langlayer-sdk/core",
   "version": "0.2.0",
+  "description": "Core runtime for LangLayer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riverrz/langlayer-sdk.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/riverrz/langlayer-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/riverrz/langlayer-sdk/issues"
+  },
   "license": "MIT",
   "sideEffects": false,
   "main": "./dist/index.js",

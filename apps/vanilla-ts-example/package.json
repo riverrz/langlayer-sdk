@@ -1,7 +1,12 @@
 {
   "name": "vanilla-ts-example",
-  "private": true,
   "version": "1.1.0",
+  "description": "Example Vite + TypeScript app using LangLayer",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riverrz/langlayer-sdk.git",
+    "directory": "packages/vanilla-ts-example"
+  },
   "type": "module",
   "scripts": {
     "dev": "vite",

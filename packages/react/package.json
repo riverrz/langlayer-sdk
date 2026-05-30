@@ -2,6 +2,16 @@
   "name": "@langlayer-sdk/react",
   "license": "MIT",
   "version": "0.1.0",
+  "description": "React bindings for LangLayer core",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/riverrz/langlayer-sdk.git",
+    "directory": "packages/react"
+  },
+  "homepage": "https://github.com/riverrz/langlayer-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/riverrz/langlayer-sdk/issues"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
