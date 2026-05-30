@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
       - name: Enable Corepack
@@ -33,6 +33,11 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Configure npm auth
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Debug npm identity
         run: npm whoami
