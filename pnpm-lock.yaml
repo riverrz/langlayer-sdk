@@ -128,10 +128,11 @@ importers:
   packages/typescript-config: {}
 
   packages/vanilla:
-    devDependencies:
+    dependencies:
       '@langlayer-sdk/core':
         specifier: workspace:*
         version: link:../core
+    devDependencies:
       '@langlayer-sdk/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
