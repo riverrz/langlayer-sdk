@@ -2,13 +2,13 @@ import {
   LangLayer,
   type TranslationTree,
   type DeepKeys,
-} from "@langlayer/core";
+} from "@langlayer-sdk/core";
 import { CreateLangLayerConfig } from "./types";
 
 async function attachDevtools<TDict extends TranslationTree>(
   core: LangLayer<TDict>,
 ) {
-  const initializeDevTools = (await import("@langlayer/core/devtools"))
+  const initializeDevTools = (await import("@langlayer-sdk/core/devtools"))
     .initializeDevTools;
 
   await initializeDevTools(core);

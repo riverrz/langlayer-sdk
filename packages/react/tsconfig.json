@@ -1,5 +1,5 @@
 {
-  "extends": "@langlayer/typescript-config/react-library.json",
+  "extends": "@langlayer-sdk/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "./src",

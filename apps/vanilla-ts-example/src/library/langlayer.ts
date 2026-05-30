@@ -1,4 +1,4 @@
-import { createLangLayer } from "@langlayer/vanilla";
+import { createLangLayer } from "@langlayer-sdk/vanilla";
 
 const ll = createLangLayer({
   organizationSlug: "langlayer-sdk-examples-OVXRVE",

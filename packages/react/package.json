@@ -1,5 +1,5 @@
 {
-  "name": "@langlayer/react",
+  "name": "@langlayer-sdk/react",
   "license": "MIT",
   "version": "0.0.1",
   "main": "./dist/index.js",
@@ -26,11 +26,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@langlayer/core": "workspace:*"
+    "@langlayer-sdk/core": "workspace:*"
   },
   "devDependencies": {
-    "@langlayer/eslint-config": "workspace:*",
-    "@langlayer/typescript-config": "workspace:*",
+    "@langlayer-sdk/eslint-config": "workspace:*",
+    "@langlayer-sdk/typescript-config": "workspace:*",
     "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
     "@types/react-dom": "19.2.2",

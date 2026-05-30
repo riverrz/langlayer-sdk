@@ -23,7 +23,7 @@ importers:
 
   apps/vanilla-ts-example:
     dependencies:
-      '@langlayer/vanilla':
+      '@langlayer-sdk/vanilla':
         specifier: workspace:*
         version: link:../../packages/vanilla
     devDependencies:
@@ -36,10 +36,10 @@ importers:
 
   packages/core:
     devDependencies:
-      '@langlayer/eslint-config':
+      '@langlayer-sdk/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@langlayer/typescript-config':
+      '@langlayer-sdk/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':
@@ -93,17 +93,17 @@ importers:
 
   packages/react:
     dependencies:
-      '@langlayer/core':
+      '@langlayer-sdk/core':
         specifier: workspace:*
         version: link:../core
       react:
         specifier: '>=18'
         version: 19.2.0
     devDependencies:
-      '@langlayer/eslint-config':
+      '@langlayer-sdk/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@langlayer/typescript-config':
+      '@langlayer-sdk/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':
@@ -129,13 +129,13 @@ importers:
 
   packages/vanilla:
     devDependencies:
-      '@langlayer/core':
+      '@langlayer-sdk/core':
         specifier: workspace:*
         version: link:../core
-      '@langlayer/eslint-config':
+      '@langlayer-sdk/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@langlayer/typescript-config':
+      '@langlayer-sdk/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':

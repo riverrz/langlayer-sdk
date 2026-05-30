@@ -1,4 +1,4 @@
-import { type LangLayer } from "@langlayer/core";
+import { type LangLayer } from "@langlayer-sdk/core";
 
 export type CreateLangLayerConfig = ConstructorParameters<
   typeof LangLayer

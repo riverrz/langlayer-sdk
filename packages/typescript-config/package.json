@@ -1,5 +1,5 @@
 {
-  "name": "@langlayer/typescript-config",
+  "name": "@langlayer-sdk/typescript-config",
   "version": "0.0.0",
   "private": true,
   "publishConfig": {
