@@ -1,5 +1,12 @@
 # vanilla-ts-example
 
+## 1.1.2
+
+### Patch Changes
+
+- Updated dependencies [8c7a39d]
+  - @langlayer-sdk/vanilla@0.3.1
+
 ## 1.1.1
 
 ### Patch Changes
