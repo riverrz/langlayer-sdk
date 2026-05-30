@@ -13,29 +13,33 @@ import {
 export const initializeDevTools = async <TDict extends TranslationTree>(
   core: LangLayer<TDict>,
 ) => {
-  const searchParams = new URLSearchParams(window.location.search);
+  try {
+    const searchParams = new URLSearchParams(window.location.search);
 
-  const previewToken = searchParams.get("previewToken");
+    const previewToken = searchParams.get("previewToken");
 
-  if (!previewToken) {
-    throw new Error(
-      "[LangLayer] - Failed to initialize devtools. Cause: Missing previewToken from url search params",
-    );
+    if (!previewToken) {
+      throw new Error(
+        "[LangLayer] - Failed to initialize devtools. Cause: Missing previewToken from url search params",
+      );
+    }
+
+    const metadata = await getContentPreviewMetadata(previewToken);
+
+    const isValidated = core.validateConfig(metadata);
+
+    if (!isValidated) {
+      throw new Error(
+        `[LangLayer] - Failed to initialize devtools. Cause: Configuration mismatch.`,
+      );
+    }
+
+    attachIframeListener(core);
+
+    console.log("[LangLayer] - Successfully initialized devtools");
+  } catch (error) {
+    console.error(error);
   }
-
-  const metadata = await getContentPreviewMetadata(previewToken);
-
-  const isValidated = core.validateConfig(metadata);
-
-  if (!isValidated) {
-    throw new Error(
-      `[LangLayer] - Failed to initialize devtools. Cause: Configuration mismatch.`,
-    );
-  }
-
-  attachIframeListener(core);
-
-  console.log("[LangLayer] - Successfully initialized devtools");
 };
 
 async function getContentPreviewMetadata(previewToken: string) {

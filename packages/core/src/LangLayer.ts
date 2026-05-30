@@ -97,26 +97,30 @@ export class LangLayer<TDict extends TranslationTree> {
   // -----------------------
 
   async setLanguage(lang: string): Promise<void> {
-    if (!this.manifest) await this.loadManifest();
+    try {
+      if (!this.manifest) await this.loadManifest();
 
-    const translationFileName = this.manifest!.languages[lang];
+      const translationFileName = this.manifest!.languages[lang];
 
-    if (!translationFileName) {
-      if (
-        this.config.fallbackLanguage &&
-        this.config.fallbackLanguage !== lang
-      ) {
-        console.error(
-          `[LangLayer] - Messages not found for language:${lang}, falling back to ${this.config.fallbackLanguage}`,
-        );
-        return this.setLanguage(this.config.fallbackLanguage);
+      if (!translationFileName) {
+        if (
+          this.config.fallbackLanguage &&
+          this.config.fallbackLanguage !== lang
+        ) {
+          console.error(
+            `[LangLayer] - Messages not found for language:${lang}, falling back to ${this.config.fallbackLanguage}`,
+          );
+          return this.setLanguage(this.config.fallbackLanguage);
+        }
+        throw new Error(`[LangLayer] - Language "${lang}" not found`);
       }
-      throw new Error(`[LangLayer] - Language "${lang}" not found`);
+
+      await this.loadTranslationTree(lang, translationFileName);
+
+      this.currentLang = lang;
+    } catch (error) {
+      console.error(error);
     }
-
-    await this.loadTranslationTree(lang, translationFileName);
-
-    this.currentLang = lang;
   }
 
   getCurrentLanguage() {
