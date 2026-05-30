@@ -3,11 +3,25 @@ import {
   type TranslationTree,
   type DeepKeys,
 } from "@langlayer/core";
+import { CreateLangLayerConfig } from "./types";
+
+async function attachDevtools<TDict extends TranslationTree>(
+  core: LangLayer<TDict>,
+) {
+  const initializeDevTools = (await import("@langlayer/core/devtools"))
+    .initializeDevTools;
+
+  await initializeDevTools(core);
+}
 
 export function createLangLayer<TDict extends TranslationTree>(
-  config: ConstructorParameters<typeof LangLayer>[0],
+  config: CreateLangLayerConfig,
 ) {
   const core = new LangLayer<TDict>(config);
+
+  if (config.enableDevtools) {
+    attachDevtools(core);
+  }
 
   function applyBindings() {
     document.querySelectorAll("[data-llKey]").forEach((el) => {
@@ -17,7 +31,7 @@ export function createLangLayer<TDict extends TranslationTree>(
   }
 
   core.on("change", (key: DeepKeys<TDict>, value: string) => {
-    const el = document.querySelector(`[data-llKey]="${key}"`);
+    const el = document.querySelector(`[data-llKey="${key}"]`);
 
     if (!el) {
       console.warn(

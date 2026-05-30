@@ -10,9 +10,9 @@ import {
   TranslationTree,
 } from "./library/types";
 
-export default async function initializeDevTools<TDict extends TranslationTree>(
+export const initializeDevTools = async <TDict extends TranslationTree>(
   core: LangLayer<TDict>,
-) {
+) => {
   const searchParams = new URLSearchParams(window.location.search);
 
   const previewToken = searchParams.get("previewToken");
@@ -36,7 +36,7 @@ export default async function initializeDevTools<TDict extends TranslationTree>(
   attachIframeListener(core);
 
   console.log("[LangLayer] - Successfully initialized devtools");
-}
+};
 
 async function getContentPreviewMetadata(previewToken: string) {
   const res = await fetch(
