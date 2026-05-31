@@ -1,5 +1,15 @@
 # @langlayer-sdk/core
 
+## 0.4.0
+
+### Minor Changes
+
+- 262f852: - Added getSupportedLanguages() method
+  - Rename getLanguage to getCurrentLanguage
+  - Expose getSupportedLanguages() method
+  - Maintain selected/initial language in sessionStorage
+  - Introduce a language selector to allow switching languages
+
 ## 0.3.1
 
 ### Patch Changes
