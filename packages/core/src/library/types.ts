@@ -10,13 +10,7 @@ export type Manifest = {
   languages: Record<string, string>; // en → file.json
 };
 
-export type TranslationTree = {
-  [key: string]: TranslationTree | string;
-};
-
-export type Translations = {
-  [key: string]: string;
-};
+export type Translations = Record<string, string>;
 
 export type DeepKeys<T> = T extends object
   ? {
