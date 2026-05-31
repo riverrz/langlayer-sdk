@@ -1,5 +1,20 @@
 # vanilla-ts-example
 
+## 1.2.0
+
+### Minor Changes
+
+- 262f852: - Added getSupportedLanguages() method
+  - Rename getLanguage to getCurrentLanguage
+  - Expose getSupportedLanguages() method
+  - Maintain selected/initial language in sessionStorage
+  - Introduce a language selector to allow switching languages
+
+### Patch Changes
+
+- Updated dependencies [262f852]
+  - @langlayer-sdk/vanilla@0.5.0
+
 ## 1.1.5
 
 ### Patch Changes
