@@ -1,5 +1,13 @@
 # @langlayer-sdk/react
 
+## 0.1.2
+
+### Patch Changes
+
+- 2781888: Use provenance for publishing
+- Updated dependencies [2781888]
+  - @langlayer-sdk/core@0.2.2
+
 ## 0.1.1
 
 ### Patch Changes

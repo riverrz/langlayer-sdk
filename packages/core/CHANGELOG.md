@@ -1,5 +1,11 @@
 # @langlayer-sdk/core
 
+## 0.2.2
+
+### Patch Changes
+
+- 2781888: Use provenance for publishing
+
 ## 0.2.1
 
 ### Patch Changes
