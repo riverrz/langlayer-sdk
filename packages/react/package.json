@@ -1,7 +1,7 @@
 {
   "name": "@langlayer-sdk/react",
   "license": "MIT",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "React bindings for LangLayer core",
   "repository": {
     "type": "git",

@@ -1,5 +1,13 @@
 # vanilla-ts-example
 
+## 1.1.3
+
+### Patch Changes
+
+- 2781888: Use provenance for publishing
+- Updated dependencies [2781888]
+  - @langlayer-sdk/vanilla@0.3.2
+
 ## 1.1.2
 
 ### Patch Changes
