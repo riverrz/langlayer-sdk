@@ -1,5 +1,14 @@
 # @langlayer-sdk/core
 
+## 0.3.0
+
+### Minor Changes
+
+- 44ea235: - Remove TranslationTree and instead maintain Translations in the state
+  - Add a getter method to get translations by language
+  - Update translation message immutably
+  - Remove TranslationTree and instead use Translation type instead
+
 ## 0.2.2
 
 ### Patch Changes

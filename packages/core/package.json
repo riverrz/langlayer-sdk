@@ -1,6 +1,6 @@
 {
   "name": "@langlayer-sdk/core",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Core runtime for LangLayer",
   "repository": {
     "type": "git",
