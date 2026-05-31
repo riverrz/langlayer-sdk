@@ -4,7 +4,7 @@ import ll from "./library/langlayer";
 export const setupLanguageSwitcher = async (element: HTMLSelectElement) => {
   const supportedLanguages = await ll.getSupportedLanguages();
 
-  supportedLanguages.forEach(({ key, name }) => {
+  supportedLanguages?.forEach(({ key, name }) => {
     const optionElm = document.createElement("option");
     optionElm.value = key;
     optionElm.textContent = name;
