@@ -1,5 +1,14 @@
 # @langlayer-sdk/core
 
+## 0.3.1
+
+### Patch Changes
+
+- 837f898: - Rename 'change' event to 'translationChange'
+  - Maintain a list of listeners instead of just one listener per event
+  - Add 'off' method for removing listeners
+  - Rename 'change' event to 'translationChange'
+
 ## 0.3.0
 
 ### Minor Changes

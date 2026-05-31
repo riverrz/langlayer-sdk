@@ -1,5 +1,12 @@
 # @langlayer-sdk/react
 
+## 0.1.4
+
+### Patch Changes
+
+- Updated dependencies [837f898]
+  - @langlayer-sdk/core@0.3.1
+
 ## 0.1.3
 
 ### Patch Changes
