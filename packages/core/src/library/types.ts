@@ -52,3 +52,5 @@ export type IFrameMessage<TDict> = {
     value: string;
   };
 };
+
+export type SupportedLanguage = { name: string; key: string };

@@ -56,7 +56,9 @@ export function createLangLayer<TDict extends Translations>(
 
     t: core.t.bind(core),
 
-    getLanguage: core.getCurrentLanguage.bind(core),
+    getCurrentLanguage: core.getCurrentLanguage.bind(core),
+
+    getSupportedLanguages: core.getSupportedLanguages.bind(core),
 
     applyBindings,
   };

@@ -1,3 +1,5 @@
+import { LANGLAYER_CDN_URL } from "./constants";
+
 const doubleEncodeURIComponent = (str: string) =>
   encodeURIComponent(encodeURIComponent(str));
 
@@ -38,7 +40,7 @@ export const getUploadedContentPath = ({
   organizationSlug: string;
   contentBranchName: string;
 }) =>
-  `${getContentBranchUploadBasePath({ contentBranchName, projectSlug, organizationSlug })}/${doubleEncodeURIComponent(langFileName)}`;
+  `${LANGLAYER_CDN_URL}/${getContentBranchUploadBasePath({ contentBranchName, projectSlug, organizationSlug })}/${doubleEncodeURIComponent(langFileName)}`;
 
 export const getUploadedManifestPath = ({
   organizationSlug,
@@ -49,7 +51,7 @@ export const getUploadedManifestPath = ({
   organizationSlug: string;
   contentBranchName: string;
 }) =>
-  `${getContentBranchUploadBasePath({ contentBranchName, projectSlug, organizationSlug })}/manifest.json`;
+  `${LANGLAYER_CDN_URL}/${getContentBranchUploadBasePath({ contentBranchName, projectSlug, organizationSlug })}/manifest.json`;
 
 export const interpolate = (
   str: string,

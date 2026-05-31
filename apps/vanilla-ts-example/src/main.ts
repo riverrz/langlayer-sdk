@@ -4,11 +4,17 @@ import typescriptLogo from "./assets/typescript.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import { setupCounter } from "./counter.ts";
+import { setupLanguageSwitcher } from "./language-switcher.ts";
+import {
+  YOUR_DEFAULT_LANGUAGE_KEY,
+  YOUR_LANGUAGE_CACHE_KEY,
+} from "./library/constants.ts";
 
-const currentLanguage = "en";
+const initialLanguage =
+  sessionStorage.getItem(YOUR_LANGUAGE_CACHE_KEY) || YOUR_DEFAULT_LANGUAGE_KEY;
 
 try {
-  await ll.init(currentLanguage);
+  await ll.init(initialLanguage);
 } catch (error) {
   console.error(error);
 }
@@ -69,3 +75,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 
 ll.applyBindings();
+
+setupLanguageSwitcher(
+  document.querySelector<HTMLSelectElement>("#language-selector")!,
+);
