@@ -10,7 +10,7 @@ const currentLanguage = "en";
 try {
   await ll.init(currentLanguage);
 } catch (error) {
-  console.error;
+  console.error(error);
 }
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -22,7 +22,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
   <div>
     <h1 data-llKey="homepage.title"></h1>
-    <p>${ll.t('homepage.description', { fileName: '<code>src/main.ts</code>', featureName: '<code>HMR</code>' })}</p>
+    <p>${ll.t("homepage.description", { fileName: "<code>src/main.ts</code>", featureName: "<code>HMR</code>" })}</p>
   </div>
   <button id="counter" type="button" class="counter"></button>
 </section>
