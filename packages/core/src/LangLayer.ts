@@ -7,6 +7,8 @@ import type {
   Translations,
   LangLayerEventListeners,
   EventCallback,
+  ApiResponse,
+  SupportedLanguage,
 } from "./library/types";
 import {
   getUploadedContentPath,
@@ -16,7 +18,7 @@ import {
 import {
   DEFAULT_CONTENT_BRANCH_NAME,
   DEFAULT_LANGUAGE,
-  LANGLAYER_CDN_URL,
+  LANGLAYER_API_URL,
 } from "./library/constants";
 
 export class LangLayer<TDict extends Translations> {
@@ -38,15 +40,21 @@ export class LangLayer<TDict extends Translations> {
   // Fetch helpers with cache
   // -----------------------
 
-  private async fetchJSON<T>(url: string, cacheKey: string): Promise<T> {
+  private async fetchJSON<T>(
+    url: string,
+    cacheKey: string,
+    shouldCache?: (value: T) => boolean,
+  ): Promise<T> {
     const cached = this.cache.get<T>(cacheKey);
     if (cached) return cached;
 
-    const res = await fetch(`${LANGLAYER_CDN_URL}/${url}`);
+    const res = await fetch(url);
 
-    const data = await res.json();
+    const data = (await res.json()) as T;
 
-    this.cache.set(cacheKey, data);
+    if (!shouldCache || shouldCache(data)) {
+      this.cache.set(cacheKey, data);
+    }
     return data;
   }
 
@@ -92,6 +100,26 @@ export class LangLayer<TDict extends Translations> {
   // Language loading
   // -----------------------
 
+  async getSupportedLanguages() {
+    try {
+      const response = await this.fetchJSON<ApiResponse<SupportedLanguage[]>>(
+        `${LANGLAYER_API_URL}/content/languages`,
+        "supported-languages",
+        (res) => res.success,
+      );
+
+      if (response.success) {
+        return response.data;
+      }
+
+      throw new Error(response.error);
+    } catch (error) {
+      console.error(`[LangLayer] - Failed to get supported languages`, {
+        cause: error,
+      });
+    }
+  }
+
   async setLanguage(lang: string): Promise<void> {
     try {
       if (!this.manifest) await this.loadManifest();
@@ -115,7 +143,7 @@ export class LangLayer<TDict extends Translations> {
 
       this.currentLang = lang;
     } catch (error) {
-      console.error(error);
+      console.error(`[LangLayer] - Failed to set language`, { cause: error });
     }
   }
 
