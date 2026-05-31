@@ -20,9 +20,18 @@ export type DeepKeys<T> = T extends object
     }[keyof T]
   : never;
 
+export type TranslationChangeEventListener<TDict> = (
+  key: DeepKeys<TDict>,
+  value: string,
+) => void;
+
 export type LangLayerEventListeners<TDict> = {
-  change?: (key: DeepKeys<TDict>, value: string) => void;
+  translationChange?: TranslationChangeEventListener<TDict>[];
 };
+
+export type EventCallback<TDict, T extends LangLayerEvent<TDict>> = NonNullable<
+  LangLayerEventListeners<TDict>[T]
+>[number];
 
 export type LangLayerEvent<TDict> = keyof LangLayerEventListeners<TDict>;
 

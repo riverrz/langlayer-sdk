@@ -30,7 +30,7 @@ export function createLangLayer<TDict extends Translations>(
     });
   }
 
-  core.on("change", (key: DeepKeys<TDict>, value: string) => {
+  core.on("translationChange", (key: DeepKeys<TDict>, value: string) => {
     const el = document.querySelector(`[data-llKey="${key}"]`);
 
     if (!el) {
