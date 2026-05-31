@@ -5,11 +5,9 @@ import type {
   LangLayerConfig,
   Manifest,
   Translations,
-  TranslationTree,
   LangLayerEventListeners,
 } from "./library/types";
 import {
-  createTranslationTree,
   getUploadedContentPath,
   getUploadedManifestPath,
   interpolate,
@@ -19,11 +17,10 @@ import {
   DEFAULT_LANGUAGE,
   LANGLAYER_CDN_URL,
 } from "./library/constants";
-import { get } from "./library/get";
 
-export class LangLayer<TDict extends TranslationTree> {
+export class LangLayer<TDict extends Translations> {
   private manifest?: Manifest;
-  private translationTreePerLanguage: Record<string, TranslationTree> = {};
+  private translationsPerLanguage: Record<string, Translations> = {};
   private readonly cache = new Cache();
 
   private currentLang = DEFAULT_LANGUAGE;
@@ -77,19 +74,17 @@ export class LangLayer<TDict extends TranslationTree> {
     );
   }
 
-  private async loadTranslationTree(lang: string, translationFileName: string) {
+  private async loadTranslations(lang: string, translationFileName: string) {
     const url = getUploadedContentPath({
       ...this.config,
       contentBranchName: this.branch(),
       langFileName: translationFileName,
     });
 
-    const translations = await this.fetchJSON<Translations>(
+    this.translationsPerLanguage[lang] = await this.fetchJSON<Translations>(
       url,
       `lang:${lang}:${translationFileName}:${this.manifest!.lastUpdatedAt}`,
     );
-
-    this.translationTreePerLanguage[lang] = createTranslationTree(translations);
   }
 
   // -----------------------
@@ -115,7 +110,7 @@ export class LangLayer<TDict extends TranslationTree> {
         throw new Error(`[LangLayer] - Language "${lang}" not found`);
       }
 
-      await this.loadTranslationTree(lang, translationFileName);
+      await this.loadTranslations(lang, translationFileName);
 
       this.currentLang = lang;
     } catch (error) {
@@ -123,8 +118,16 @@ export class LangLayer<TDict extends TranslationTree> {
     }
   }
 
+  // -----------------------
+  // Getters
+  // -----------------------
+
   getCurrentLanguage() {
     return this.currentLang;
+  }
+
+  getMessages(lang: string) {
+    return this.translationsPerLanguage[lang];
   }
 
   // -----------------------
@@ -135,10 +138,8 @@ export class LangLayer<TDict extends TranslationTree> {
     key: K,
     params?: Record<string, string | number>,
   ): string {
-    const value = get(
-      this.translationTreePerLanguage[this.getCurrentLanguage()],
-      key,
-    );
+    const value =
+      this.translationsPerLanguage[this.getCurrentLanguage()]?.[key];
 
     if (!value || typeof value !== "string") {
       console.error(
@@ -160,9 +161,11 @@ export class LangLayer<TDict extends TranslationTree> {
     value: string,
     params?: Record<string, string | number>,
   ) {
-    this.translationTreePerLanguage[lang] ??= {};
-
-    this.translationTreePerLanguage[lang][key] = value;
+    this.translationsPerLanguage[lang] = Object.assign(
+      {},
+      this.translationsPerLanguage[lang],
+      { [key]: value },
+    );
 
     if (this.getCurrentLanguage() === lang) {
       this.eventListeners.change?.(key, interpolate(value, params));

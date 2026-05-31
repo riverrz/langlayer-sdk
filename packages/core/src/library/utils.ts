@@ -1,5 +1,3 @@
-import { TranslationTree } from "./types";
-
 const doubleEncodeURIComponent = (str: string) =>
   encodeURIComponent(encodeURIComponent(str));
 
@@ -62,30 +60,3 @@ export const interpolate = (
     str,
   );
 };
-
-export const createTranslationTree = (obj: Record<string, string>): TranslationTree => {
-  const result: TranslationTree = {};
-
-  for (const [key, value] of Object.entries(obj)) {
-    const parts = key.split(".");
-
-    let current: TranslationTree = result;
-
-    parts.forEach((part, index) => {
-      const isLast = index === parts.length - 1;
-
-      if (isLast) {
-        current[part] = value;
-        return;
-      }
-
-      if (typeof current[part] !== "object") {
-        current[part] = {};
-      }
-
-      current = current[part] as TranslationTree;
-    });
-  }
-
-  return result;
-}

@@ -7,10 +7,10 @@ import {
   ApiResponse,
   ContentPreviewMetadata,
   IFrameMessage,
-  TranslationTree,
+  Translations,
 } from "./library/types";
 
-export const initializeDevTools = async <TDict extends TranslationTree>(
+export const initializeDevTools = async <TDict extends Translations>(
   core: LangLayer<TDict>,
 ) => {
   try {
@@ -58,7 +58,7 @@ async function getContentPreviewMetadata(previewToken: string) {
   return response.data;
 }
 
-async function attachIframeListener<TDict extends TranslationTree>(
+async function attachIframeListener<TDict extends Translations>(
   core: LangLayer<TDict>,
 ) {
   window.addEventListener("message", (event) => {
