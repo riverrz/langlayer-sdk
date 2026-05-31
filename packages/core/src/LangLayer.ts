@@ -6,6 +6,7 @@ import type {
   Manifest,
   Translations,
   LangLayerEventListeners,
+  EventCallback,
 } from "./library/types";
 import {
   getUploadedContentPath,
@@ -168,7 +169,9 @@ export class LangLayer<TDict extends Translations> {
     );
 
     if (this.getCurrentLanguage() === lang) {
-      this.eventListeners.change?.(key, interpolate(value, params));
+      this.eventListeners.translationChange?.forEach((cb) =>
+        cb(key, interpolate(value, params)),
+      );
     }
   }
 
@@ -176,11 +179,35 @@ export class LangLayer<TDict extends Translations> {
   // Listeners
   // -----------------------
 
-  on<T extends LangLayerEvent<TDict>>(
+  on<T extends LangLayerEvent<TDict>>(event: T, cb: EventCallback<TDict, T>) {
+    this.eventListeners[event] ??= [];
+
+    this.eventListeners[event].push(cb);
+  }
+
+  off<T extends LangLayerEvent<TDict>>(
     event: T,
-    cb: LangLayerEventListeners<TDict>[T],
-  ) {
-    this.eventListeners[event] = cb;
+    cb: EventCallback<TDict, T>,
+  ): boolean {
+    const listeners = this.eventListeners[event];
+
+    if (!listeners) {
+      return false;
+    }
+
+    const index = listeners.indexOf(cb);
+
+    if (index === -1) {
+      return false;
+    }
+
+    listeners.splice(index, 1);
+
+    if (listeners.length === 0) {
+      delete this.eventListeners[event];
+    }
+
+    return true;
   }
 
   // -----------------------
