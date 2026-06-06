@@ -117,6 +117,8 @@ export class LangLayer<TDict extends Translations> {
       console.error(`[LangLayer] - Failed to get supported languages`, {
         cause: error,
       });
+
+      throw error;
     }
   }
 
