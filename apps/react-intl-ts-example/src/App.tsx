@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { LanguageSwitcher } from "./components/language-switcher";
 import { Homepage } from "./components/homepage";
-import { IntlProvider } from "react-intl";
+import { FormattedMessage, IntlProvider } from "react-intl";
 import ll from "./library/langlayer";
 import {
   YOUR_DEFAULT_LANGUAGE,
@@ -46,7 +46,12 @@ function App() {
           padding: "8px",
         }}
       >
-        <span style={{ fontSize: "14px" }}>Change language: </span>
+        <label htmlFor="language-switcher" style={{ fontSize: "14px" }}>
+          <FormattedMessage
+            defaultMessage="Change language: "
+            id="homepage.change-language"
+          />
+        </label>
         <LanguageSwitcher
           selectedLanguage={currentLanguage}
           onChange={handleLanguageChange}
