@@ -27,7 +27,9 @@ export function createLangLayer<TDict extends Translations>(
   function applyBindings() {
     document.querySelectorAll("[data-llKey]").forEach((el) => {
       const key = el.getAttribute("data-llKey")! as DeepKeys<TDict>;
-      el.textContent = core.t(key);
+      const textContent = core.t(key);
+
+      if (textContent) el.textContent = textContent;
     });
   }
 
