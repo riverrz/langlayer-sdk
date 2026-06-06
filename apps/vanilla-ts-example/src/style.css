@@ -302,6 +302,6 @@ code {
   padding: 8px;
 }
 
-.language-selector-container span {
+.language-selector-container label {
   font-size: 14px;
 }

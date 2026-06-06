@@ -18,7 +18,7 @@ try {
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <div class="language-selector-container">
-  <span data-llKey="homepage.change-language">Change language: </span>
+  <label for="language-selector" data-llKey="homepage.change-language">Change language: </label>
   <select id="language-selector"></select>
 </div>
 <section id="center">
