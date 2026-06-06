@@ -1,0 +1,11 @@
+{
+  "homepage.dynamic_count": "计数为 {count}",
+  "homepage.documentation.title": "文档",
+  "homepage.documentation.description": "您的问题，已解答",
+  "homepage.documentation.explore_vite": "探索 Vite",
+  "homepage.documentation.learn_more": "了解更多",
+  "homepage.connect.title": "与我们联系",
+  "homepage.connect.description": "加入 Vite 社区",
+  "homepage.title": "开始使用",
+  "homepage.description": "编辑 {fileName} 并保存以测试 {featureName}"
+}

@@ -1,0 +1,11 @@
+{
+  "homepage.dynamic_count": "العدد هو {count}",
+  "homepage.documentation.title": "التوثيق",
+  "homepage.documentation.description": "أسئلتك، تمت الإجابة عليها",
+  "homepage.documentation.explore_vite": "استكشف Vite",
+  "homepage.documentation.learn_more": "تعرف على المزيد",
+  "homepage.connect.title": "تواصل معنا",
+  "homepage.connect.description": "انضم إلى مجتمع Vite",
+  "homepage.title": "ابدأ الآن",
+  "homepage.description": "قم بتحرير {fileName} واحفظه لاختبار {featureName}"
+}

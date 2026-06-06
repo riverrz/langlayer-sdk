@@ -4,7 +4,7 @@ import ll from "./library/langlayer";
 export const setupLanguageSwitcher = async (element: HTMLSelectElement) => {
   const supportedLanguages = await ll.getSupportedLanguages();
 
-  supportedLanguages?.forEach(({ key, name }) => {
+  supportedLanguages.forEach(({ key, name }) => {
     const optionElm = document.createElement("option");
     optionElm.value = key;
     optionElm.textContent = name;
@@ -14,15 +14,24 @@ export const setupLanguageSwitcher = async (element: HTMLSelectElement) => {
     element.appendChild(optionElm);
   });
 
-  element.addEventListener("change", () => {
-    const newSelectedLanguage = element.value;
+  element.addEventListener("change", async () => {
+    const newSelectedLanguageKey = element.value;
+
+    const newLanguage = supportedLanguages.find(
+      ({ key }) => key === newSelectedLanguageKey,
+    )!;
 
     // Update LangLayer language and refresh data-llKey translations.
     // Does not refresh translations rendered via t().
 
-    // await ll.setLanguage(newSelectedLanguage);
+    // await ll.setLanguage(newSelectedLanguageKey);
 
-    sessionStorage.setItem(YOUR_LANGUAGE_CACHE_KEY, newSelectedLanguage);
+    // setDocumentLang(newLanguage);
+
+    sessionStorage.setItem(
+      YOUR_LANGUAGE_CACHE_KEY,
+      JSON.stringify(newLanguage),
+    );
 
     // Force full translation reload (data-llKey + t())
     window.location.reload();
