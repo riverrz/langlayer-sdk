@@ -53,4 +53,8 @@ export type IFrameMessage<TDict> = {
   };
 };
 
-export type SupportedLanguage = { name: string; key: string };
+export type SupportedLanguage = {
+  name: string;
+  key: string;
+  direction: "ltr" | "rtl";
+};
