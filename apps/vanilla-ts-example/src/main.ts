@@ -5,21 +5,22 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import { setupCounter } from "./counter.ts";
 import { setupLanguageSwitcher } from "./language-switcher.ts";
-import {
-  YOUR_DEFAULT_LANGUAGE_KEY,
-  YOUR_LANGUAGE_CACHE_KEY,
-} from "./library/constants.ts";
+import { getInitialLanguage, setDocumentLang } from "./library/utils.ts";
 
-const initialLanguage =
-  sessionStorage.getItem(YOUR_LANGUAGE_CACHE_KEY) || YOUR_DEFAULT_LANGUAGE_KEY;
+const initialLanguage = getInitialLanguage();
 
 try {
-  await ll.init(initialLanguage);
+  await ll.init(initialLanguage.key);
+  setDocumentLang(initialLanguage);
 } catch (error) {
   console.error(error);
 }
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
+<div class="language-selector-container">
+  <span data-llKey="homepage.change-language">Change language: </span>
+  <select id="language-selector"></select>
+</div>
 <section id="center">
   <div class="hero">
     <img src="${heroImg}" class="base" width="170" height="179">

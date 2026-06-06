@@ -298,4 +298,10 @@ code {
 .language-selector-container {
   display: flex;
   justify-content: flex-end;
+  gap: 12px;
+  padding: 8px;
+}
+
+.language-selector-container span {
+  font-size: 14px;
 }
