@@ -5,4 +5,6 @@ export type {
   DeepKeys,
   Translations,
   SupportedLanguage,
+  LangLayerEvent,
+  LangLayerEventListeners
 } from "./library/types";
