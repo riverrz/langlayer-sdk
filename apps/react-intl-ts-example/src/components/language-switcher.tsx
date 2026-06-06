@@ -14,9 +14,13 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   const [languages, setLanguages] = useState<SupportedLanguage[]>([]);
 
   useEffect(() => {
-    ll.getSupportedLanguages()
+    const controller = new AbortController();
+
+    ll.getSupportedLanguages(controller)
       .then((supportedLanguages) => setLanguages(supportedLanguages))
       .catch(console.error);
+
+    return () => controller.abort();
   }, []);
 
   return (

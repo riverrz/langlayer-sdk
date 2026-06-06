@@ -43,12 +43,13 @@ export class LangLayer<TDict extends Translations> {
   private async fetchJSON<T>(
     url: string,
     cacheKey: string,
+    controller?: AbortController,
     shouldCache?: (value: T) => boolean,
   ): Promise<T> {
     const cached = this.cache.get<T>(cacheKey);
     if (cached) return cached;
 
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: controller?.signal });
 
     const data = (await res.json()) as T;
 
@@ -100,11 +101,12 @@ export class LangLayer<TDict extends Translations> {
   // Language loading
   // -----------------------
 
-  async getSupportedLanguages() {
+  async getSupportedLanguages(controller?: AbortController) {
     try {
       const response = await this.fetchJSON<ApiResponse<SupportedLanguage[]>>(
         `${LANGLAYER_API_URL}/content/languages`,
         "supported-languages",
+        controller,
         (res) => res.success,
       );
 
