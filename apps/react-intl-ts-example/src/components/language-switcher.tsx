@@ -20,7 +20,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       .then((supportedLanguages) => setLanguages(supportedLanguages))
       .catch(console.error);
 
-    return () => controller.abort();
+    return () => controller.abort("Cleanup");
   }, []);
 
   return (

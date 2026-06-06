@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./App.css";
+import type { SupportedLanguage } from "@langlayer-sdk/react";
+import { useMessages } from "@langlayer-sdk/react/hooks";
 import { LanguageSwitcher } from "./components/language-switcher";
 import { Homepage } from "./components/homepage";
 import { FormattedMessage, IntlProvider } from "react-intl";
@@ -8,24 +10,35 @@ import {
   YOUR_DEFAULT_LANGUAGE,
   YOUR_LANGUAGE_CACHE_KEY,
 } from "./library/constants";
-import type { SupportedLanguage } from "@langlayer-sdk/react";
 import { setDocumentLang } from "./library/utils";
 
 function App() {
-  const [messages, setMessages] = useState(
-    ll.getMessages(ll.getCurrentLanguage()),
-  );
+  // You can maintain messages in a local state
+  // Doing so will prevent messages to update when they are updated via devtools
+
+  // const [messages, setMessages] = useState(
+  //   ll.getMessages(ll.getCurrentLanguage()),
+  // );
+
+  // You can also use the useMessages hook provided by @langlayer-sdk/react
+  // This will allow devtools to update the messages
+  const messages = useMessages(ll);
+
   const [currentLanguage, setCurrentLanguage] = useState(
     ll.getCurrentLanguage(),
   );
 
   const handleLanguageChange = async (newLanguage: SupportedLanguage) => {
+    // Set language in ll to trigger fetching corresponding messages
     await ll.setLanguage(newLanguage.key);
-    setMessages(ll.getMessages(newLanguage.key));
+
+    // Set messages in your local state if you are using it
+    // setMessages(ll.getMessages(newLanguage.key));
     setCurrentLanguage(newLanguage.key);
 
     setDocumentLang(newLanguage);
 
+    // Set the language in your persistence layer
     sessionStorage.setItem(
       YOUR_LANGUAGE_CACHE_KEY,
       JSON.stringify(newLanguage),
