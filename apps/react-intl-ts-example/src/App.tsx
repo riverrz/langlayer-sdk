@@ -48,7 +48,7 @@ function App() {
       >
         <label htmlFor="language-switcher" style={{ fontSize: "14px" }}>
           <FormattedMessage
-            defaultMessage="Change language: "
+            defaultMessage="Change language:"
             id="homepage.change-language"
           />
         </label>

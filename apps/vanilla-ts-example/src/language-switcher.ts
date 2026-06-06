@@ -1,6 +1,5 @@
 import { YOUR_LANGUAGE_CACHE_KEY } from "./library/constants";
 import ll from "./library/langlayer";
-import { setDocumentLang } from "./library/utils";
 
 export const setupLanguageSwitcher = async (element: HTMLSelectElement) => {
   const supportedLanguages = await ll.getSupportedLanguages();
@@ -25,9 +24,9 @@ export const setupLanguageSwitcher = async (element: HTMLSelectElement) => {
     // Update LangLayer language and refresh data-llKey translations.
     // Does not refresh translations rendered via t().
 
-    await ll.setLanguage(newSelectedLanguageKey);
+    // await ll.setLanguage(newSelectedLanguageKey);
 
-    setDocumentLang(newLanguage);
+    // setDocumentLang(newLanguage);
 
     sessionStorage.setItem(
       YOUR_LANGUAGE_CACHE_KEY,
