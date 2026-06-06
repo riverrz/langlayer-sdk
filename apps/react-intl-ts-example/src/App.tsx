@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { LanguageSwitcher } from "./components/language-switcher";
 import { Homepage } from "./components/homepage";
@@ -8,6 +8,8 @@ import {
   YOUR_DEFAULT_LANGUAGE,
   YOUR_LANGUAGE_CACHE_KEY,
 } from "./library/constants";
+import type { SupportedLanguage } from "@langlayer-sdk/react";
+import { setDocumentLang } from "./library/utils";
 
 function App() {
   const [messages, setMessages] = useState(
@@ -17,21 +19,24 @@ function App() {
     ll.getCurrentLanguage(),
   );
 
-  useEffect(() => {
-    sessionStorage.setItem(YOUR_LANGUAGE_CACHE_KEY, currentLanguage);
-  }, [currentLanguage]);
+  const handleLanguageChange = async (newLanguage: SupportedLanguage) => {
+    await ll.setLanguage(newLanguage.key);
+    setMessages(ll.getMessages(newLanguage.key));
+    setCurrentLanguage(newLanguage.key);
 
-  const handleLanguageChange = async (newLanguage: string) => {
-    await ll.setLanguage(newLanguage);
-    setMessages(ll.getMessages(newLanguage));
-    setCurrentLanguage(newLanguage);
+    setDocumentLang(newLanguage);
+
+    sessionStorage.setItem(
+      YOUR_LANGUAGE_CACHE_KEY,
+      JSON.stringify(newLanguage),
+    );
   };
 
   return (
     <IntlProvider
       messages={messages}
       locale={currentLanguage}
-      defaultLocale={YOUR_DEFAULT_LANGUAGE}
+      defaultLocale={YOUR_DEFAULT_LANGUAGE.key}
     >
       <div
         style={{

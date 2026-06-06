@@ -3,17 +3,15 @@ import { createRoot } from "react-dom/client";
 import ll from "./library/langlayer.ts";
 import "./index.css";
 import App from "./App.tsx";
-import {
-  YOUR_DEFAULT_LANGUAGE,
-  YOUR_LANGUAGE_CACHE_KEY,
-} from "./library/constants.ts";
+import { getInitialLanguage, setDocumentLang } from "./library/utils.ts";
 
-const initialLanguage =
-  sessionStorage.getItem(YOUR_LANGUAGE_CACHE_KEY) || YOUR_DEFAULT_LANGUAGE;
+const initialLanguage = getInitialLanguage();
 
 // Bootstrap
 try {
-  await ll.init(initialLanguage);
+  await ll.init(initialLanguage.key);
+
+  setDocumentLang(initialLanguage);
 } catch (error) {
   console.error(error);
 }

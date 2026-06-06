@@ -1,4 +1,8 @@
-import { LangLayer, type Translations } from "@langlayer-sdk/core";
+import {
+  LangLayer,
+  type Translations,
+  type SupportedLanguage,
+} from "@langlayer-sdk/core";
 import { CreateLangLayerConfig } from "./types";
 
 async function attachDevtools<TDict extends Translations>(
@@ -33,3 +37,5 @@ export function createLangLayer<TDict extends Translations>(
     getMessages: core.getMessages.bind(core),
   };
 }
+
+export type { SupportedLanguage };

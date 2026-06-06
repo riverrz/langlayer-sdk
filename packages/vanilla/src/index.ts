@@ -2,6 +2,7 @@ import {
   LangLayer,
   type DeepKeys,
   type Translations,
+  type SupportedLanguage,
 } from "@langlayer-sdk/core";
 import { CreateLangLayerConfig } from "./types";
 
@@ -63,3 +64,5 @@ export function createLangLayer<TDict extends Translations>(
     applyBindings,
   };
 }
+
+export { SupportedLanguage };

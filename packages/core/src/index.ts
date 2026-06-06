@@ -1,3 +1,8 @@
 export { LangLayer } from "./LangLayer";
 
-export type { LangLayerConfig, DeepKeys, Translations } from "./library/types";
+export type {
+  LangLayerConfig,
+  DeepKeys,
+  Translations,
+  SupportedLanguage,
+} from "./library/types";
