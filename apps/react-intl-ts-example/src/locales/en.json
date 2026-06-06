@@ -1,0 +1,11 @@
+{
+  "homepage.dynamic_count": "Count is {count}",
+  "homepage.documentation.title": "Documentation",
+  "homepage.documentation.description": "Your questions, answered",
+  "homepage.documentation.explore_vite": "Explore Vite",
+  "homepage.documentation.learn_more": "Learn More",
+  "homepage.connect.title": "Connect with us",
+  "homepage.connect.description": "Join the Vite community",
+  "homepage.title": "Get started",
+  "homepage.description": "Edit {fileName} and save to test {featureName}"
+}

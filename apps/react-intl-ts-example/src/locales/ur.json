@@ -1,0 +1,11 @@
+{
+  "homepage.dynamic_count": "گنتی {count} ہے",
+  "homepage.documentation.title": "دستاویزات",
+  "homepage.documentation.description": "آپ کے سوالات، جوابات کے ساتھ",
+  "homepage.documentation.explore_vite": "Vite کا جائزہ لیں",
+  "homepage.documentation.learn_more": "مزید جانیں",
+  "homepage.connect.title": "ہم سے جڑیں",
+  "homepage.connect.description": "Vite کمیونٹی میں شامل ہوں",
+  "homepage.title": "شروع کریں",
+  "homepage.description": "{fileName} میں ترمیم کریں اور {featureName} کو جانچنے کے لیے محفوظ کریں"
+}
